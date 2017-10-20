@@ -4,7 +4,7 @@ import ProductReducer from './products/productsReducer';
 
 const reducers = {
   form: formReducer,
-  productStroe: ProductReducer
+  productStore: ProductReducer
 }
 const rootReducer = combineReducers(reducers);
 export default rootReducer;
