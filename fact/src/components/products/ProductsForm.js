@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button } from 'semantic-ui-react';
 import { Field, reduxForm } from 'redux-form';
 import classnames from 'classnames';
+import { FormattedMessage } from 'react-intl';
 
 class ProductForm extends Component {
   renderField = ({input, label, type, meta: { touched, error }}) => (
@@ -16,7 +17,7 @@ class ProductForm extends Component {
     return (
       <Form onSubmit={ () => handleSubmit().then(reset) }>
       <div>
-        <h1>Add new Question</h1>
+        <h1><FormattedMessage id='welcome.saludo'/></h1>
       </div>
         <Field name="Producto" type="text"  component={this.renderField} label="Producto"/>
         <Button primary type="submit"disabled={pristine || submitting}>Save</Button>
