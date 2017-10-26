@@ -2,11 +2,27 @@ import { client } from '.././';
 
 const url = "products";
 
-export const AddProduct = (product) =>{
-  return dispatch => {
-    return dispatch({
-      type:"ADD_PRODUCT",
-      payload: client.getClient().post(url, product)
-    })
-  }
+const addProduct = product => ({
+  type: 'ADD_PRODUCT',
+  payload: product,
+})
+
+const productNoSave = () => ({
+  type: 'PRODUCT_REJECT',
+})
+
+
+const addProductAsync = (product) => dispatch =>  {
+  client.getClient().post(url, product)
+    .then((res) => { 
+      dispatch(addProduct(res));
+    }).catch(() => {
+      console.log("holas")
+       dispatch(productNoSave())
+       }
+    )
+}
+
+export default {
+  addProductAsync,
 }
