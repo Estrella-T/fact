@@ -1,5 +1,6 @@
 const defaultState = {
-  product: null
+  product: null,
+  loading: false
 }
 
 export default (state= defaultState, action={}) => {
@@ -7,8 +8,13 @@ export default (state= defaultState, action={}) => {
     case "ADD_PRODUCT":
       return {
         ...state,
-        token: action.payload.data,
-        error: {}
+        loading: true
+      }
+
+    case "PRODUCT_REJECT":
+      return {
+        ...state,
+        loading: true
       }
   
     default:

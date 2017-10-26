@@ -2,30 +2,29 @@ import React, { Component } from 'react';
 import { SubmissionError } from 'redux-form';
 import { connect } from 'react-redux';
 import ProductsForm from '../../components/products/ProductsForm';
-import { AddProduct } from '../../actions/products/productsActions';
+import actions from '../../actions/products/productsActions';
 
 class ProductsFormPage extends Component {
-  submit = (product) => {
-    return this.props.AddProduct(product)
-      .then(console.log("ok"))
-      .catch(err => {
-        throw new SubmissionError(this.props.error)
-      });
 
+  submit = (product) => {
+    this.props.addProduct(product);
   }
+
   render () {
     return(
       <div>
-        <ProductsForm onSubmit={this.submit}/>
+        <ProductsForm loading={this.props.loading} onSubmit={this.submit}/>
       </div>
     );
   }
+}
 
-  mapStateProps = (state) => {
-    return {
-      product: state.productStore.product,
-      errors: state.productStore.error
-    }
+const mapStateProps = (state) => {
+  return {
+    product: state.productStore.product,
+    loading: state.productStore.loading,
+    errors: state.productStore.error
   }
 }
-export default connect(this.mapStateProps, {AddProduct})(ProductsFormPage);
+
+export default connect(mapStateProps, { addProduct: actions.addProductAsync })(ProductsFormPage);

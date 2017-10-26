@@ -9,29 +9,34 @@ class ProductForm extends Component {
     <Form.Field className={classnames({error:touched && error})}>
         <label>{label}</label>
         <input {...input} placeholder={label} type={type}/>
-        {touched && error && <span className="error">{error.message}</span>}
+        {touched && error && <span className='error'>{error}</span>}
     </Form.Field>
   );
+
   render() {
-    const { handleSubmit, pristine, submitting, loading, reset } = this.props;
+    const { handleSubmit, pristine, submitting, reset, loading } = this.props;
+    console.log('loading', loading);
     return (
-      <Form onSubmit={ () => handleSubmit().then(reset) }>
+      <Form onSubmit={ handleSubmit }>
       <div>
         <h1><FormattedMessage id='welcome.saludo'/></h1>
       </div>
         <Field name="Producto" type="text"  component={this.renderField} label="Producto"/>
-        <Button primary type="submit"disabled={pristine || submitting}>Save</Button>
+        <Field name="codeBar" type="text"  component={this.renderField} label="Producto"/>
+        <Button primary type="submit" disabled={pristine || submitting}>Save</Button>
       </Form>
     );
   }
 }
+
 const validate = (values) => {
-  const errors = {name: {}};
-  if (!values.ask) {
-    errors.ask = {
-      message: 'Nesecita ingresar una pregunta'
+  const errors = {};
+  const requiereFilds = [ "Producto","codeBar"]
+  requiereFilds.forEach(field => {
+    if(!values[field]){
+      errors[field] = 'Required'
     }
-  }
+  })
   return errors;
 }
 
