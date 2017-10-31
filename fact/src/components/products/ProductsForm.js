@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
 class ProductForm extends Component {
+
   renderField = ({input, label, type, meta: { touched, error }}) => (
     <Form.Field className={classnames({error:touched && error})}>
         <label>{label}</label>
@@ -13,11 +14,17 @@ class ProductForm extends Component {
     </Form.Field>
   );
 
+  resetForm = (form) => {
+    const {sendProduct, reset} = this.props
+    return sendProduct().then(() => {
+      reset();
+    });
+  }
+
   render() {
-    const { handleSubmit, pristine, submitting, reset, loading } = this.props;
-    console.log('loading', loading);
+    const { handleSubmit, pristine, submitting } = this.props;
     return (
-      <Form onSubmit={ handleSubmit }>
+      <Form onSubmit={ handleSubmit(this.resetForm.bind(this)) }>
       <div>
         <h1><FormattedMessage id='welcome.saludo'/></h1>
       </div>
