@@ -7,22 +7,9 @@ const addProduct = product => ({
   payload: product,
 })
 
-const productNoSave = () => ({
-  type: 'PRODUCT_REJECT',
-})
-
-
-const addProductAsync = (product) => dispatch =>  {
-  client.getClient().post(url, product)
+export const addProductAsync = (product) => dispatch =>  {
+  return client.getClient().post(url, product)
     .then((res) => { 
       dispatch(addProduct(res));
-    }).catch(() => {
-      console.log("holas")
-       dispatch(productNoSave())
-       }
-    )
-}
-
-export default {
-  addProductAsync,
+    });
 }

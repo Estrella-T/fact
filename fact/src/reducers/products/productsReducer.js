@@ -8,15 +8,8 @@ export default (state= defaultState, action={}) => {
     case "ADD_PRODUCT":
       return {
         ...state,
-        loading: true
-      }
-
-    case "PRODUCT_REJECT":
-      return {
-        ...state,
-        loading: true
-      }
-  
+        loading: false
+      }  
     default:
       return state;
   }
